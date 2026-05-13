@@ -13,7 +13,8 @@ export interface InventoryItem {
   providedIn: 'root'
 })
 export class InventoryService {
-  private apiUrl = 'http://localhost:3000/api/inventory';
+  // Conectado al backend en Render
+  private apiUrl = 'https://inventario-api-76z6.onrender.com/api/inventory';
   private http = inject(HttpClient);
 
   constructor() { }

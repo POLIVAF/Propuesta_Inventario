@@ -6,7 +6,8 @@ import { Observable, tap } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:3000/api/auth';
+  // Conectado al backend en Render
+  private apiUrl = 'https://inventario-api-76z6.onrender.com/api/auth';
   private http = inject(HttpClient);
 
   constructor() { }

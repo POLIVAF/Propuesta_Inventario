@@ -1,0 +1,60 @@
+<div class="inventory-layout">
+  <header class="header">
+    <h2>Mi Inventario</h2>
+    <button (click)="logout()" class="btn-danger">Cerrar Sesión</button>
+  </header>
+
+  <main class="content">
+    <div class="form-panel">
+      <h3>{{ isEditing ? 'Editar Producto' : 'Nuevo Producto' }}</h3>
+      <form [formGroup]="inventoryForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label>Nombre del Producto</label>
+          <input type="text" formControlName="product_name" />
+        </div>
+        <div class="form-group">
+          <label>Cantidad</label>
+          <input type="number" formControlName="quantity" min="0" />
+        </div>
+        <div class="form-group">
+          <label>Precio</label>
+          <input type="number" formControlName="price" step="0.01" min="0" />
+        </div>
+        
+        <div class="form-actions">
+          <button type="submit" class="btn-primary" [disabled]="inventoryForm.invalid">
+            {{ isEditing ? 'Actualizar' : 'Guardar' }}
+          </button>
+          <button type="button" *ngIf="isEditing" (click)="resetForm()" class="btn-secondary">Cancelar</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="table-panel">
+      <table class="inventory-table">
+        <thead>
+          <tr>
+            <th>Producto</th>
+            <th>Cantidad</th>
+            <th>Precio</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of items">
+            <td>{{ item.product_name }}</td>
+            <td>{{ item.quantity }}</td>
+            <td>${{ item.price }}</td>
+            <td class="actions-cell">
+              <button (click)="editItem(item)" class="btn-warning btn-sm">Editar</button>
+              <button (click)="deleteItem(item.id!)" class="btn-danger btn-sm">Eliminar</button>
+            </td>
+          </tr>
+          <tr *ngIf="items.length === 0">
+            <td colspan="4" class="empty-state">No hay productos en el inventario.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+</div>
